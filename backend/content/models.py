@@ -16,6 +16,8 @@ class Enrollment(models.Model):
     current_grade = models.CharField(max_length=16, blank=True, null=True)
     target_grade = models.CharField(max_length=16, blank=True, null=True)
     exam_board = models.CharField(max_length=50, blank=True, null=True)
+    last_accessed = models.DateTimeField(auto_now=True)
+    completion_percentage = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
 
     class Meta:
         unique_together = ('student', 'subject')
@@ -49,3 +51,9 @@ class Question(models.Model):
     mark_scheme = models.TextField(blank=True, null=True)
     is_published = models.BooleanField(default=False)
 
+class QuestionAttempt(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    attempt_date = models.DateTimeField(auto_now_add=True)
+    is_correct = models.BooleanField()
+    time_taken = models.DurationField()
