@@ -35,7 +35,6 @@ class Enrollment(models.Model):
         unique_together = ('student', 'subject')
 
 class Module(models.Model):
-    subject = models.ManyToManyField(Subject, related_name='modules')
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=255, unique=True)
     description = models.TextField()
