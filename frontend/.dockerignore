@@ -1,5 +1,6 @@
-.venv
-__pycache__
-*.pyc
+node_modules
+.next
+out
+build
+npm-debug.log
 .git
-.env
