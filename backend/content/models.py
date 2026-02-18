@@ -1,12 +1,11 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
-class Student(models.Model):
-    username = models.CharField(max_length=25, unique=True, primary_key=True)
-    first_name = models.CharField(max_length=25)
-    last_name = models.CharField(max_length=25)
-    email = models.EmailField(unique=True)
+class Student(AbstractUser):
     subjects = models.ManyToManyField('Subject', through='Enrollment')
-    date_joined = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.username
 
 class Enrollment(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
