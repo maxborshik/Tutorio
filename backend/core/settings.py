@@ -16,6 +16,17 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+#Telling django to point at my database
+
+import environ
+import os
+
+env = environ.Env()
+# Read the .env file
+environ.Env.read_env(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
+
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
@@ -73,10 +84,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': env.db('DATABASE_URL', default='sqlite:///db.sqlite3')
 }
 
 
