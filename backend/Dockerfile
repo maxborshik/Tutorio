@@ -1,21 +1,25 @@
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 
+# Create a non-root user inside the image that matches your host UID
+ARG USER_ID=1000
+ARG GROUP_ID=1000
+RUN groupadd -g ${GROUP_ID} uvgroup && \
+    useradd -u ${USER_ID} -g uvgroup -m uvuser
+
 WORKDIR /app
 
-# Point the cache to a location we can control via volumes
-ENV UV_CACHE_DIR=/home/uv_cache
-ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
-ENV PYTHONUNBUFFERED=1
+# Set permissions for the app and cache folders immediately
+RUN chown uvuser:uvgroup /app
+ENV UV_CACHE_DIR=/home/uvuser/.cache/uv
+RUN mkdir -p /home/uvuser/.cache/uv && chown -R uvuser:uvgroup /home/uvuser/.cache
 
-# Copy dependency files
-COPY pyproject.toml uv.lock ./
+# Switch to the non-root user BEFORE running any uv commands
+USER uvuser
 
-# Install dependencies into the image (runs as root)
+COPY --chown=uvuser:uvgroup pyproject.toml uv.lock ./
 RUN uv sync --frozen --no-install-project
 
-COPY . .
+COPY --chown=uvuser:uvgroup . .
 
 EXPOSE 8000
-
-# The startup command: This will use the volume-mapped cache
 CMD ["sh", "-c", "uv sync && uv run python manage.py runserver 0.0.0.0:8000"]
