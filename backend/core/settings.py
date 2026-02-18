@@ -25,7 +25,7 @@ env = environ.Env()
 # Read the .env file
 environ.Env.read_env(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
 
-
+AUTH_USER_MODEL = 'content.Student'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
