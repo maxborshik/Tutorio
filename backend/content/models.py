@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+import uuid
 
 # Student model extending AbstractUser to include profile picture and subjects enrolled in.
 class Student(AbstractUser):
@@ -121,10 +122,10 @@ class Skill(models.Model):
 
 # Question model represents the questions that will be presented, each question can be associated with multiple modules and skills.
 class Question(models.Model):
-    modules = models.ManyToManyField(Module, related_name='module_questions')
+    subtopics = models.ManyToManyField(ModuleSubtopic, related_name='subtopic_questions')
     skills = models.ManyToManyField(Skill, related_name='skill_questions')
 
-    id = models.AutoField(primary_key=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     question_text = models.TextField()
     mark_scheme = models.TextField(blank=True, null=True)
     answer_text = models.TextField()
