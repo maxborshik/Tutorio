@@ -65,6 +65,18 @@ class Module(models.Model):
     def __str__(self):
         return f"{self.name} ({self.exam_board})"
 
+# ModuleSubtopic model representing specific subtopics within modules, as certain modules are quite broad, we want to allow revision even if the student is halfway through a module.
+class ModuleSubtopic(models.Model):
+    module = models.ForeignKey(Module, on_delete=models.CASCADE, related_name='subtopics')
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255)
+    description = models.TextField()
+    order = models.PositiveIntegerField()
+
+    class Meta:
+        unique_together = ('module', 'name')
+        ordering = ['order']
+
 # The through model storing which student is enrolled in which subjects.
 # Also includes additional info on their progress and performance on the subject as a whole.
 class Enrollment(models.Model):
@@ -109,9 +121,10 @@ class Skill(models.Model):
 
 # Question model represents the questions that will be presented, each question can be associated with multiple modules and skills.
 class Question(models.Model):
+    modules = models.ManyToManyField(Module, related_name='module_questions')
+    skills = models.ManyToManyField(Skill, related_name='skill_questions')
+
     id = models.AutoField(primary_key=True)
-    modules = models.ManyToManyField(Module, related_name='questions')
-    skills = models.ManyToManyField(Skill, related_name='questions')
     question_text = models.TextField()
     mark_scheme = models.TextField(blank=True, null=True)
     answer_text = models.TextField()
