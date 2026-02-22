@@ -26,17 +26,17 @@ class Subject(models.Model):
     modules = models.ManyToManyField('Module', through='SubjectModule')
 
     class Meta:
-            constraints = [
-                models.UniqueConstraint(
-                    fields=['name', 'exam_board'], 
-                    name='unique_subject_per_board'
-                ),
-                models.UniqueConstraint(
-                    fields=['slug', 'exam_board'], 
-                    name='unique_slug_per_board'
-                )
-            ]
-            
+        constraints = [
+            models.UniqueConstraint(
+                fields=['name', 'exam_board'], 
+                name='unique_subject_per_board'
+            ),
+            models.UniqueConstraint(
+                fields=['slug', 'exam_board'], 
+                name='unique_slug_per_board'
+            )
+        ]
+    
     def __str__(self):
         return f"{self.name} ({self.exam_board})"
     
@@ -52,17 +52,17 @@ class Module(models.Model):
     is_published = models.BooleanField(default=False)
 
     class Meta:
-            constraints = [
-                models.UniqueConstraint(
-                    fields=['name', 'exam_board'], 
-                    name='unique_subject_per_board'
-                ),
-                models.UniqueConstraint(
-                    fields=['slug', 'exam_board'], 
-                    name='unique_slug_per_board'
-                )
-            ]
-            
+        constraints = [
+            models.UniqueConstraint(
+                fields=['name', 'exam_board'], 
+                name='unique_subject_per_board'
+            ),
+            models.UniqueConstraint(
+                fields=['slug', 'exam_board'], 
+                name='unique_slug_per_board'
+            )
+        ]
+    
     def __str__(self):
         return f"{self.name} ({self.exam_board})"
 
@@ -153,6 +153,16 @@ class ModuleMastery(models.Model):
 
     class Meta:
         unique_together = ('student', 'module')
+
+# SubModuleMastery tracks the mastery level of each submodule for each student.
+class ModuleSubtopicMastery(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    submodule = models.ForeignKey(ModuleSubtopic, on_delete=models.CASCADE)
+    mastery_score = models.FloatField(default=0.0)
+    last_updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ('student', 'submodule')
 
 # QuestionAttempt model tracks each attempt a student makes at a question.
 class QuestionAttempt(models.Model):
