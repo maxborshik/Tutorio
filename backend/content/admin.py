@@ -24,7 +24,7 @@ class ModuleAdmin(admin.ModelAdmin):
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ('id', 'difficulty', 'is_published')
-    list_filter = ('difficulty', 'is_published', 'modules')
+    list_filter = ('difficulty', 'is_published', 'subtopics', 'skills')
     search_fields = ('question_text',)
 
 @admin.register(Student)

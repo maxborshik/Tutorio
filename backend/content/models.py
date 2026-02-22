@@ -16,10 +16,10 @@ class Student(AbstractUser):
 class Subject(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255)
-    exam_board = models.CharField(max_length=50)
-    key_stage = models.CharField(max_length=50)
-    description = models.TextField()
-    icon = models.URLField()
+    exam_board = models.CharField(max_length=50, default='Generic')
+    key_stage = models.CharField(max_length=50, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    icon = models.URLField(blank=True, null=True)
     course_duration = models.DurationField(blank=True, null=True)
     is_published = models.BooleanField(default=False)
 
@@ -29,11 +29,11 @@ class Subject(models.Model):
         constraints = [
             models.UniqueConstraint(
                 fields=['name', 'exam_board'], 
-                name='unique_subject_per_board'
+                name='unique_subject_name_per_board'
             ),
             models.UniqueConstraint(
                 fields=['slug', 'exam_board'], 
-                name='unique_slug_per_board'
+                name='unique_subject_slug_per_board'
             )
         ]
     
@@ -45,21 +45,21 @@ class Subject(models.Model):
 class Module(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255)
-    exam_board = models.CharField(max_length=50)
-    key_stage = models.CharField(max_length=50)
-    description = models.TextField()
-    icon = models.URLField()
+    exam_board = models.CharField(max_length=50, default='Generic')
+    key_stage = models.CharField(max_length=50, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    icon = models.URLField(blank=True, null=True)
     is_published = models.BooleanField(default=False)
 
     class Meta:
         constraints = [
             models.UniqueConstraint(
                 fields=['name', 'exam_board'], 
-                name='unique_subject_per_board'
+                name='unique_module_name_per_board'
             ),
             models.UniqueConstraint(
                 fields=['slug', 'exam_board'], 
-                name='unique_slug_per_board'
+                name='unique_module_slug_per_board'
             )
         ]
     
@@ -71,8 +71,8 @@ class ModuleSubtopic(models.Model):
     module = models.ForeignKey(Module, on_delete=models.CASCADE, related_name='subtopics')
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255)
-    description = models.TextField()
-    order = models.PositiveIntegerField()
+    description = models.TextField(blank=True, null=True)
+    order = models.PositiveIntegerField(blank=True, null=True)
 
     class Meta:
         unique_together = ('module', 'name')
@@ -99,7 +99,7 @@ class Enrollment(models.Model):
 class SubjectModule(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     module = models.ForeignKey(Module, on_delete=models.CASCADE)
-    order = models.PositiveIntegerField()
+    order = models.PositiveIntegerField(blank=True, null=True)
     difficulty = models.IntegerField(default=1, choices=[(i, i) for i in range(1, 10)])
 
     class Meta:
@@ -112,7 +112,7 @@ class Skill(models.Model):
     name = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=255, unique=True)
     category = models.CharField(max_length=255)
-    description = models.TextField()
+    description = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -123,9 +123,9 @@ class Question(models.Model):
     skills = models.ManyToManyField(Skill, related_name='skill_questions')
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    question_text = models.TextField()
+    question_text = models.TextField(blank=True, null=True)
     mark_scheme = models.TextField(blank=True, null=True)
-    answer_text = models.TextField()
+    answer_text = models.TextField(blank=True, null=True)
     image = models.URLField(blank=True, null=True)
     difficulty = models.IntegerField(default=1, choices=[(i, i) for i in range(1, 10)])
     is_published = models.BooleanField(default=False)
@@ -168,20 +168,20 @@ class ModuleSubtopicMastery(models.Model):
 class QuestionAttempt(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    response = models.TextField()
+    response = models.TextField(blank=True, null=True)
     response_image = models.URLField(blank=True, null=True)
     attempt_date = models.DateTimeField(auto_now_add=True)
-    is_correct = models.BooleanField()
-    time_taken = models.DurationField()
-    attempt_number = models.PositiveIntegerField()
+    is_correct = models.BooleanField(blank=True, null=True)
+    time_taken = models.DurationField(blank=True, null=True)
+    attempt_number = models.PositiveIntegerField(blank=True, null=True)
 
 # AIInteraction model tracks the interactions between the student and the AI tutor for any questions the student chooses to ask for help with.
 # This allows us to track the effectiveness of the AI tutor at the skill, module and subject level, and to identify any areas the AI tutor needs improvement on.
 class AIInteraction(models.Model):
     attempt = models.ForeignKey(QuestionAttempt, on_delete=models.CASCADE, related_name='ai_interactions')
     timestamp = models.DateTimeField(auto_now_add=True)
-    prompt = models.TextField()
-    response = models.TextField()
+    prompt = models.TextField(blank=True, null=True)
+    response = models.TextField(blank=True, null=True)
 
     class Meta:
         ordering = ['timestamp']
