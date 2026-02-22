@@ -94,8 +94,6 @@ class Enrollment(models.Model):
     class Meta:
         unique_together = ('student', 'subject')
 
-
-
 # The through model allowing multiple modules to be associated with multiple subjects.
 # The order field specifies the progression of modules within a subject, and the difficulty field tracks the relative difficulty of each module within the subject.
 class SubjectModule(models.Model):
@@ -107,7 +105,6 @@ class SubjectModule(models.Model):
     class Meta:
         unique_together = ('subject', 'module')
         ordering = ['order']
-
 
 # Skill model represents the specific skills that a question might test. These skills will be tracked for each student to spot weaknesses and suggest revision topics.
 # The category field allows us to group similar skills together.
