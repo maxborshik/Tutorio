@@ -8,7 +8,7 @@ const Navbar = () => {
             <div className="max-w-6xl mx-auto px-6">
                 <div className="flex items-center justify-between">
                     <Link href="/">
-                        <Image src="/tutorio-logo.png" alt="Tutorio Logo" width={32} height={32} priority/>
+                        <Image src="/tutorio-logo-white.png" alt="Tutorio Logo White" width={128} height={128} priority/>
                     </Link> 
                 </div>
             </div>
