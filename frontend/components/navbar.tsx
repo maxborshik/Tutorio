@@ -36,19 +36,19 @@ export default function Navbar() {
             <NavigationMenuList className="space-x-8">
               
                 <NavigationMenuItem>
-                    <Link href="/dashboard"  passHref>
-                        <NavigationMenuLink className={`${navigationMenuTriggerStyle()} text-white hover:bg-gray-700 hover:text-white ${isActive("/dashboard") ? "bg-gray-500" : "bg-transparent"}`}>
-                            Dashboard
+                        <NavigationMenuLink asChild className={`${navigationMenuTriggerStyle()} text-white hover:bg-gray-700 hover:text-white ${isActive("/dashboard") ? "bg-gray-500" : "bg-transparent"}`}>
+                            <Link href="/dashboard" passHref>
+                                Dashboard
+                            </Link>
                         </NavigationMenuLink>
-                    </Link>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                    <Link href="/mastery" passHref>
-                        <NavigationMenuLink className={`${navigationMenuTriggerStyle()} text-white hover:bg-gray-700 hover:text-white ${isActive("/mastery") ? "bg-gray-500" : "bg-transparent"}`}>
-                            Mastery
+                        <NavigationMenuLink asChild className={`${navigationMenuTriggerStyle()} text-white hover:bg-gray-700 hover:text-white ${isActive("/mastery") ? "bg-gray-500" : "bg-transparent"}`}>
+                            <Link href="/mastery" passHref>
+                                Mastery
+                            </Link>
                         </NavigationMenuLink>
-                    </Link>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
@@ -58,7 +58,7 @@ export default function Navbar() {
 
                     <NavigationMenuContent>
                     <ul className="grid w-80 gap-3 p-4 md:w-125 md:grid-cols-2 lg:w-150 bg-gray-800 border border-gray-700 rounded-md">
-                        <li className="row-span-2">
+                        <li className="col-span-2 pt-2">
                             <NavigationMenuLink asChild>
                                 <a className="flex h-full w-full select-none flex-col justify-end rounded-md bg-linear-to-b from-blue-600 to-blue-900 p-6 no-underline outline-none focus:shadow-md" href="/courses">
                                 <div className="mb-2 mt-4 text-lg font-medium text-white">All Courses</div>
@@ -79,15 +79,36 @@ export default function Navbar() {
                     </NavigationMenuContent>
 
                 </NavigationMenuItem>
+                                <NavigationMenuItem>
+                    <NavigationMenuTrigger className={`text-white hover:bg-gray-700 hover:text-white ${isActive("/modules") ? "bg-gray-500" : "bg-transparent"}`}>
+                        Modules
+                    </NavigationMenuTrigger>
+
+                    <NavigationMenuContent>
+                    <ul className="grid w-80 gap-3 p-4 md:w-125 md:grid-cols-3 lg:w-200 bg-gray-800 border border-gray-700 rounded-md">
+                        <li className="row-span-2">
+                            <NavigationMenuLink asChild>
+                                <a className="flex h-full w-full select-none flex-col justify-end rounded-md bg-linear-to-b from-blue-600 to-blue-900 p-6 no-underline outline-none focus:shadow-md" href="/modules">
+                                <div className="mb-2 mt-4 text-lg font-medium text-white">All Modules </div>
+                                <p className="text-sm leading-tight text-white/90">Browse the complete library of university-level modules.</p>
+                                </a>
+                            </NavigationMenuLink>
+                        </li>
+
+                        <ListItem href="/modules/calculus" title="Calculus">Derivatives, limits, and integrals.</ListItem>
+                        <ListItem href="/modules/linear-algebra" title="Linear Algebra">Vectors, matrices, and eigenvalues.</ListItem>
+                    </ul>
+                    </NavigationMenuContent>
+
+                </NavigationMenuItem>
                 
             </NavigationMenuList>
             </NavigationMenu>
 
-          <div className="flex items-center space-x-8">
+        <div className="flex items-center space-x-8">
             <Link href="/about" className={`nav-btn-secondary ${isActive("/about") ? "nav-active" : ""}`}>About</Link>
-            <img src="/tutorio-icon-white-border.png" alt="Tutorio Icon" className="w-10 h-10 rounded-full border-2 border-gray-600" />
-          </div>
-
+            <Link href="/contact" className={`nav-btn-secondary ${isActive("/contact") ? "nav-active" : ""}`}>Contact</Link>
+        </div>
         </div>
       </div>
     </nav>
