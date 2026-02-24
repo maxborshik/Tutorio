@@ -25,7 +25,7 @@ services:
     user: "${UID}:${GID}"
     volumes:
       - ./frontend:/app:cached
-      - /app/node_modules # Prevents host node_modules from wiping container ones
+      - /app/node_modules
     ports:
       - "3000:3000"
     depends_on:
