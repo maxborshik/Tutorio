@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import  { ThemeProvider } from "@/components/theme-provider";
 import { CustomNavigationMenu } from "@/components/custom-nagivation-menu";
+import { CustomSidebar } from "@/components/custom-sidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 export const metadata: Metadata = {
   title: "Tutorio",
@@ -13,10 +15,15 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" suppressHydrationWarning>
       <body>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          <CustomNavigationMenu />
-          <div className="min-h-screen">
-            {children}
-          </div>
+          <SidebarProvider>
+            <CustomSidebar />
+              <SidebarInset>
+                <CustomNavigationMenu />
+                <div className="min-h-screen">
+                  {children}
+                </div>
+              </SidebarInset>
+          </SidebarProvider>
         </ThemeProvider>
       </body>
     </html>
