@@ -8,19 +8,6 @@
   --color-tutorio-blue: #4b90ed;
 }
 
-@utility nav-btn-primary {
-  background-color: #2e4568;
-  @apply px-6 py-3 rounded-lg text-white font-semibold text-base shadow-md transition-all duration-200 hover:bg-[#155a9a] hover:shadow-lg active:scale-115;
-}
-
-@utility nav-btn-secondary {
-  @apply px-6 py-3 rounded-lg text-base transition-all duration-200 hover:bg-gray-700 hover:text-white border border-transparent hover:border-gray-600;
-}
-
-@utility nav-active {
-  @apply border-b-4 border-tutorio-blue;
-}
-
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

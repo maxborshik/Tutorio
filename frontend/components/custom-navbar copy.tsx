@@ -14,6 +14,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { List } from "lucide-react";
+import { Button } from "./ui/button";
 
 export default function Navbar() {
     const pathname = usePathname() 
@@ -22,40 +23,22 @@ export default function Navbar() {
 }
 
   return (
-    <nav className="w-full fixed top-0 left-0 bg-gray-800 text-white py-2 border-b border-gray-700 z-10">
-        <div className="max-w-10xl mx-auto px-6">
+    <nav className="w-full fixed top-0 left-0 bg-gray-800 text-white py-1 px-1 border-b border-gray-900 z-99">
+        <div className="max-w-10xl mx-auto px-4">
         <div className="flex justify-between items-center">
           
             <div className="shrink-0">
                 <Link href="/">
-                    <Image src="/tutorio-logo-white.png" alt="Logo" width={80} height={80} priority />
+                    <Image src="/tutorio-logo-white.png" alt="Logo" width={60} height={60} priority />
                 </Link>
             </div>
           
             <NavigationMenu>
-            <NavigationMenuList className="space-x-8">
-              
+            <NavigationMenuList className="space-x-4">
                 <NavigationMenuItem>
-                        <NavigationMenuLink asChild className={`${navigationMenuTriggerStyle()} text-white hover:bg-gray-700 hover:text-white ${isActive("/dashboard") ? "bg-gray-500" : "bg-transparent"}`}>
-                            <Link href="/dashboard" passHref>
-                                Dashboard
-                            </Link>
-                        </NavigationMenuLink>
-                </NavigationMenuItem>
-
-                <NavigationMenuItem>
-                        <NavigationMenuLink asChild className={`${navigationMenuTriggerStyle()} text-white hover:bg-gray-700 hover:text-white ${isActive("/mastery") ? "bg-gray-500" : "bg-transparent"}`}>
-                            <Link href="/mastery" passHref>
-                                Mastery
-                            </Link>
-                        </NavigationMenuLink>
-                </NavigationMenuItem>
-
-                <NavigationMenuItem>
-                    <NavigationMenuTrigger className={`text-white hover:bg-gray-700 hover:text-white ${isActive("/courses") ? "bg-gray-500" : "bg-transparent"}`}>
+                    <NavigationMenuTrigger className={`text-white hover:bg-gray-700 hover:text-white ${isActive("/courses") ? "bg-gray-600 text-white" : "bg-transparent text-white"}`}>
                         Courses
                     </NavigationMenuTrigger>
-
                     <NavigationMenuContent>
                     <ul className="grid w-80 gap-3 p-4 md:w-125 md:grid-cols-2 lg:w-150 bg-gray-800 border border-gray-700 rounded-md">
                         <li className="col-span-2 pt-2">
@@ -80,7 +63,7 @@ export default function Navbar() {
 
                 </NavigationMenuItem>
                                 <NavigationMenuItem>
-                    <NavigationMenuTrigger className={`text-white hover:bg-gray-700 hover:text-white ${isActive("/modules") ? "bg-gray-500" : "bg-transparent"}`}>
+                    <NavigationMenuTrigger className={`text-white hover:bg-gray-700 hover:text-white ${isActive("/modules") ? "bg-gray-600 text-white" : "bg-transparent text-white"}`}>
                         Modules
                     </NavigationMenuTrigger>
 
@@ -105,9 +88,13 @@ export default function Navbar() {
             </NavigationMenuList>
             </NavigationMenu>
 
-        <div className="flex items-center space-x-8">
-            <Link href="/about" className={`nav-btn-secondary ${isActive("/about") ? "nav-active" : ""}`}>About</Link>
-            <Link href="/contact" className={`nav-btn-secondary ${isActive("/contact") ? "nav-active" : ""}`}>Contact</Link>
+        <div className="flex items-center space-x-4">
+            <Button variant="outline" size="sm" className={`${isActive("/about") ? "bg-gray-600 text-white" : "bg-transparent text-white"} hover:bg-gray-700 hover:text-white`}>
+                <Link href="/about">About</Link>
+            </Button>
+            <Button variant="outline" size="sm" className={`${isActive("/contact") ? "bg-gray-600 text-white" : "bg-transparent text-white"} hover:bg-gray-700 hover:text-white`}>
+                <Link href="/contact">Contact</Link>
+            </Button>
         </div>
         </div>
       </div>

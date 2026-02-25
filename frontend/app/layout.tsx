@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/custom-navbar";
 import  { CustomSidebar } from "@/components/custom-sidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { CustomNavigationMenu, NavigationMenuDemo } from "@/components/custom-nagivation-menu";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,16 +30,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Navbar />
-        <SidebarProvider>
-          <CustomSidebar />
-          <main className="ml-0 md:ml-64 transition-all duration-300">
-            <div className="pt-20 px-20 bg-tutorio-dark-bg min-h-screen">
+        <CustomNavigationMenu />
+            <div>
               {children}
             </div>
-          </main>        
-        </SidebarProvider>
- 
+
       </body>
     </html>
   );
