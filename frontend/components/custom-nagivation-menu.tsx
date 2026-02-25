@@ -22,6 +22,13 @@ export function CustomNavigationMenu() {
       <NavigationMenuList className="p-2">
         <NavigationMenuItem>
           <NavigationMenuLink>
+            <Link href="/">
+              <Image src="/tutorio-logo-white.png" alt="Logo" width={50} height={60} priority />
+            </Link>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuLink>
             <Button variant="outline" asChild>
               <Link href="/courses">Courses</Link>
             </Button>
