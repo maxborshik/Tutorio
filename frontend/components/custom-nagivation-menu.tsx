@@ -12,50 +12,37 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
-import { Navigation } from "lucide-react"
+import { List, Navigation } from "lucide-react"
 import { ModeToggle } from "./system-theme-toggle";
+import { Button } from "./ui/button";
 
 export function CustomNavigationMenu() {
   return (
     <NavigationMenu>
       <NavigationMenuList className="p-2">
         <NavigationMenuItem>
+          <NavigationMenuLink>
+            <Button variant="outline" asChild>
+              <Link href="/courses">Courses</Link>
+            </Button>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
           <NavigationMenuLink asChild>
-            <Link href="/">
-              <Image src="/tutorio-icon-white-border.png" alt="Logo" width={30} height={30} priority />
-            </Link>
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-        
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>Mastery</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="w-80 rounded-lg">
-              <ListItem href="/mastery/subjects" title="Subject Mastery"/>
-              <ListItem href="/mastery/modules" title="Module Mastery"/>
-              <ListItem href="/docs/primitives/typography" title="Typography"/>
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem className="hidden md:flex">
-          <NavigationMenuTrigger>Components</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link href="/docs">Docs</Link>
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link href="/about">About</Link>
+            <Button variant="outline" asChild>
+              <Link href="/about">About</Link>
+            </Button>
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem className="ml-auto">
           <ModeToggle />
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuLink asChild>
+            <Button variant="outline" asChild>
+              <Link href="/logout">Log Out</Link>
+            </Button>
+          </NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
